@@ -15,7 +15,6 @@
     <Grid>
         <!-- System Tray Icon -->
         <tb:TaskbarIcon x:Name="TrayIcon"
-                        IconSource="/Resources/icon.ico"
                         ToolTipText="CROSSRING Security"
                         DoubleClickCommand="{Binding ShowWindowCommand}">
             <tb:TaskbarIcon.ContextMenu>
