@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <ProjectGuid>{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}</ProjectGuid>
+    <RootNamespace>CrossringService</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <PropertyGroup>
+    <OutDir>$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)..\vendor\sqlite;$(ProjectDir)..\vendor\json</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>advapi32.lib;tdh.lib;wevtapi.lib;bcrypt.lib;iphlpapi.lib;ws2_32.lib;amsi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;$(ProjectDir)..\vendor\sqlite;$(ProjectDir)..\vendor\json</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>advapi32.lib;tdh.lib;wevtapi.lib;bcrypt.lib;iphlpapi.lib;ws2_32.lib;amsi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\ServiceController.cpp" />
+    <ClCompile Include="src\EtwMonitor.cpp" />
+    <ClCompile Include="src\PipeServer.cpp" />
+    <ClCompile Include="src\Database.cpp" />
+    <ClCompile Include="src\PolicyEnforcer.cpp" />
+    <ClCompile Include="src\MemoryScanner.cpp" />
+    <ClCompile Include="src\AmsiScanner.cpp" />
+    <ClCompile Include="src\HashUtil.cpp" />
+    <ClCompile Include="src\PersistenceMonitor.cpp" />
+    <ClCompile Include="src\NetworkMonitor.cpp" />
+    <ClCompile Include="src\UsbMonitor.cpp" />
+    <ClCompile Include="src\LegacySupport.cpp" />
+    <ClCompile Include="src\ZeroTrust.cpp" />
+    <ClCompile Include="src\SecurityCore.cpp" />
+    <ClCompile Include="src\SecurityCore2.cpp" />
+    <ClCompile Include="src\PassiveMonitor.cpp" />
+    <ClCompile Include="src\PassiveMonitor2.cpp" />
+    <ClCompile Include="..\vendor\sqlite\sqlite3.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\ServiceController.h" />
+    <ClInclude Include="include\EtwMonitor.h" />
+    <ClInclude Include="include\PipeServer.h" />
+    <ClInclude Include="include\Database.h" />
+    <ClInclude Include="include\PolicyEnforcer.h" />
+    <ClInclude Include="include\MemoryScanner.h" />
+    <ClInclude Include="include\AmsiScanner.h" />
+    <ClInclude Include="include\HashUtil.h" />
+    <ClInclude Include="include\PersistenceMonitor.h" />
+    <ClInclude Include="include\NetworkMonitor.h" />
+    <ClInclude Include="include\UsbMonitor.h" />
+    <ClInclude Include="include\PolicyManager.h" />
+    <ClInclude Include="include\SecurityCore.h" />
+    <ClInclude Include="include\LegacySupport.h" />
+    <ClInclude Include="include\ZeroTrust.h" />
+    <ClInclude Include="include\PassiveMonitor.h" />
+    <ClInclude Include="include\Common.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

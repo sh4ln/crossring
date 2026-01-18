@@ -1,0 +1,52 @@
+<UserControl x:Class="CrossringUI.Views.NetworkView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="Transparent">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+            <TextBlock Text="Network Connections" FontSize="18" FontWeight="SemiBold" 
+                       Foreground="#eaeaea" VerticalAlignment="Center"/>
+            <Button Content="🔄 Refresh" Margin="20,0,0,0" Padding="15,8"
+                    Command="{Binding RefreshNetworkCommand}"
+                    Background="#0f3460" Foreground="White" BorderThickness="0" Cursor="Hand">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5" 
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
+        
+        <DataGrid Grid.Row="1" ItemsSource="{Binding NetworkConnections}"
+                  AutoGenerateColumns="False" IsReadOnly="True"
+                  Background="Transparent" Foreground="#eaeaea"
+                  RowBackground="#1e1e3f" AlternatingRowBackground="#252550"
+                  BorderThickness="0" GridLinesVisibility="None">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Time" Binding="{Binding Timestamp}" Width="140"/>
+                <DataGridTextColumn Header="PID" Binding="{Binding Pid}" Width="60"/>
+                <DataGridTextColumn Header="Process" Binding="{Binding ProcessName}" Width="120"/>
+                <DataGridTextColumn Header="Local" Binding="{Binding LocalEndpoint}" Width="150"/>
+                <DataGridTextColumn Header="Remote" Binding="{Binding RemoteEndpoint}" Width="180"/>
+                <DataGridTextColumn Header="Protocol" Binding="{Binding Protocol}" Width="70"/>
+                <DataGridTemplateColumn Header="Status" Width="80">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Border Background="{Binding StatusColor}" CornerRadius="3" Padding="8,3">
+                                <TextBlock Text="{Binding Status}" Foreground="White" FontSize="11"/>
+                            </Border>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

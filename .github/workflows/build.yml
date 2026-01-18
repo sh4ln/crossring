@@ -1,0 +1,135 @@
+﻿# CROSSRING v1.0.23 - GitHub Actions Build & Release
+# This workflow builds the Windows executables and creates a release
+
+name: Build and Release
+
+on:
+  push:
+    branches: [main, master]
+    tags:
+      - 'v*'
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:  # Allow manual trigger
+
+env:
+  SOLUTION_FILE: CROSSRING.sln
+  BUILD_CONFIGURATION: Release
+  BUILD_PLATFORM: x64
+
+jobs:
+  build:
+    name: Build Windows x64
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+
+    - name: Setup .NET 8.0
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v2
+
+    - name: Restore NuGet packages
+      run: nuget restore ${{ env.SOLUTION_FILE }}
+
+    - name: Build C++ Service
+      run: msbuild CrossringService\CrossringService.vcxproj /p:Configuration=${{ env.BUILD_CONFIGURATION }} /p:Platform=${{ env.BUILD_PLATFORM }} /p:DebugType=None /p:DebugSymbols=false /m
+
+    - name: Build .NET GUI
+      run: dotnet publish CrossringUI\CrossringUI.csproj -c ${{ env.BUILD_CONFIGURATION }} -r win-x64 --self-contained false -o CrossringUI\bin\Release\net8.0-windows
+
+    - name: Verify build outputs
+      run: |
+        if (!(Test-Path "CrossringService\bin\Release\CrossringService.exe")) {
+          Write-Error "CrossringService.exe not found!"
+          exit 1
+        }
+        if (!(Test-Path "CrossringUI\bin\Release\net8.0-windows\CrossringUI.exe")) {
+          Write-Error "CrossringUI.exe not found!"
+          exit 1
+        }
+        Write-Host "All build outputs verified"
+
+    - name: Create release package
+      run: |
+        # Create release directory
+        New-Item -Path "release-package\x64" -ItemType Directory -Force
+        
+        # Copy service
+        Copy-Item "CrossringService\bin\Release\CrossringService.exe" "release-package\x64\"
+        
+        # Copy GUI and dependencies
+        Copy-Item "CrossringUI\bin\Release\net8.0-windows\*" "release-package\" -Recurse
+        
+        # Copy documentation
+        Copy-Item "README.md" "release-package\" -ErrorAction SilentlyContinue
+        Copy-Item "LICENSE.txt" "release-package\" -ErrorAction SilentlyContinue
+        Copy-Item "releases\INSTALL.txt" "release-package\" -ErrorAction SilentlyContinue
+        Copy-Item "releases\QUICKSTART.txt" "release-package\" -ErrorAction SilentlyContinue
+        Copy-Item "releases\BUILD-INFO.txt" "release-package\" -ErrorAction SilentlyContinue
+        
+        # Create ZIP
+        Compress-Archive -Path "release-package\*" -DestinationPath "CROSSRING-Windows-x64.zip"
+        
+        # Show package contents
+        Write-Host "Release package contents:"
+        Get-ChildItem "release-package" -Recurse | Select-Object FullName
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: CROSSRING-Windows-x64
+        path: release-package/
+        retention-days: 30
+
+    - name: Upload ZIP artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: CROSSRING-Windows-x64-ZIP
+        path: CROSSRING-Windows-x64.zip
+        retention-days: 30
+
+  # Create GitHub Release when a tag is pushed
+  release:
+    name: Create Release
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    
+    permissions:
+      contents: write
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Download artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: CROSSRING-Windows-x64-ZIP
+
+    - name: Get version from tag
+      id: version
+      run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        name: "CROSSRING ${{ steps.version.outputs.VERSION }} - Production Release"
+        body_path: releases/RELEASE-NOTES-v1.0.23.md
+        files: |
+          CROSSRING-Windows-x64.zip
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

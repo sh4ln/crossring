@@ -1,0 +1,89 @@
+<Window x:Class="CrossringUI.Views.LimitedModeDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Limited Mode" 
+        Height="400" Width="500"
+        WindowStartupLocation="CenterScreen"
+        Background="#1a1a2e" ResizeMode="NoResize">
+    
+    <Grid Margin="25">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Header -->
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+            <TextBlock Text="⚠️" FontSize="32" VerticalAlignment="Center"/>
+            <TextBlock Text="CROSSRING Running in Limited Mode" FontSize="18" FontWeight="SemiBold" 
+                       Foreground="#fbbf24" VerticalAlignment="Center" Margin="15,0,0,0"/>
+        </StackPanel>
+        
+        <!-- Content -->
+        <StackPanel Grid.Row="1">
+            <!-- Enabled Features -->
+            <TextBlock Text="✅ ENABLED:" Foreground="#4ade80" FontWeight="SemiBold" FontSize="14"/>
+            <StackPanel Margin="20,5,0,15">
+                <TextBlock Text="• Block file execution" Foreground="#eaeaea"/>
+                <TextBlock Text="• Real-time alerts" Foreground="#eaeaea"/>
+                <TextBlock Text="• Event logging" Foreground="#eaeaea"/>
+            </StackPanel>
+            
+            <!-- Disabled Features -->
+            <TextBlock Text="❌ DISABLED:" Foreground="#ef4444" FontWeight="SemiBold" FontSize="14"/>
+            <StackPanel Margin="20,5,0,15">
+                <TextBlock Text="• Quarantine (requires admin)" Foreground="#888"/>
+                <TextBlock Text="• Process termination (requires admin)" Foreground="#888"/>
+                <TextBlock Text="• Network filtering (requires admin)" Foreground="#888"/>
+            </StackPanel>
+            
+            <!-- Info -->
+            <Border Background="#252550" CornerRadius="8" Padding="15" Margin="0,10,0,0">
+                <TextBlock TextWrapping="Wrap" Foreground="#888" FontSize="12">
+                    To enable full protection, restart CROSSRING as Administrator (Windows) or with sudo (Linux).
+                </TextBlock>
+            </Border>
+        </StackPanel>
+        
+        <!-- Actions -->
+        <Grid Grid.Row="2" Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <CheckBox x:Name="ChkDontShowAgain" Content="Don't show again" 
+                      Foreground="#888" VerticalAlignment="Center"/>
+            
+            <Button Grid.Column="1" Content="Continue" Padding="20,10" Margin="0,0,10,0"
+                    Click="OnContinue"
+                    Background="Transparent" Foreground="#eaeaea" BorderBrush="#555" BorderThickness="1" Cursor="Hand">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            
+            <Button Grid.Column="2" Content="🔒 Restart Elevated" Padding="20,10"
+                    Click="OnRestartElevated"
+                    Background="#e94560" Foreground="White" BorderThickness="0" Cursor="Hand" FontWeight="SemiBold">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5" 
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
+    </Grid>
+</Window>

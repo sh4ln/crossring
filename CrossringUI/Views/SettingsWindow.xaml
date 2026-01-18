@@ -1,0 +1,115 @@
+<Window x:Class="CrossringUI.Views.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="CROSSRING Settings" 
+        Height="600" Width="700"
+        WindowStartupLocation="CenterOwner"
+        Background="#1a1a2e">
+    
+    <Grid Margin="25">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock Text="Settings" FontSize="24" FontWeight="Bold" Foreground="#eaeaea" Margin="0,0,0,20"/>
+        
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- General Settings -->
+                <Border Background="#16213e" CornerRadius="8" Padding="20" Margin="0,0,0,15">
+                    <StackPanel>
+                        <TextBlock Text="General" FontSize="16" FontWeight="SemiBold" Foreground="#eaeaea" Margin="0,0,0,15"/>
+                        
+                        <CheckBox x:Name="ChkStartWithWindows" Content="Start with Windows" Foreground="#eaeaea" Margin="0,0,0,10"/>
+                        <CheckBox x:Name="ChkMinimizeToTray" Content="Minimize to system tray" Foreground="#eaeaea" IsChecked="True" Margin="0,0,0,10"/>
+                        <CheckBox x:Name="ChkShowNotifications" Content="Show toast notifications" Foreground="#eaeaea" IsChecked="True"/>
+                    </StackPanel>
+                </Border>
+                
+                <!-- Security Settings -->
+                <Border Background="#16213e" CornerRadius="8" Padding="20" Margin="0,0,0,15">
+                    <StackPanel>
+                        <TextBlock Text="Security" FontSize="16" FontWeight="SemiBold" Foreground="#eaeaea" Margin="0,0,0,15"/>
+                        
+                        <CheckBox x:Name="ChkBlockUsb" Content="Block USB execution by default" Foreground="#eaeaea" IsChecked="True" Margin="0,0,0,10"/>
+                        <CheckBox x:Name="ChkAmsiScan" Content="Enable AMSI script scanning" Foreground="#eaeaea" IsChecked="True" Margin="0,0,0,10"/>
+                        <CheckBox x:Name="ChkMemoryScan" Content="Enable memory anomaly scanning" Foreground="#eaeaea" IsChecked="True" Margin="0,0,0,10"/>
+                        <CheckBox x:Name="ChkNetworkMonitor" Content="Monitor network connections" Foreground="#eaeaea" IsChecked="True" Margin="0,0,0,10"/>
+                        <CheckBox x:Name="ChkPersistenceMonitor" Content="Monitor persistence changes" Foreground="#eaeaea" IsChecked="True"/>
+                    </StackPanel>
+                </Border>
+                
+                <!-- LOLBin Settings -->
+                <Border Background="#16213e" CornerRadius="8" Padding="20" Margin="0,0,0,15">
+                    <StackPanel>
+                        <TextBlock Text="LOLBin Control" FontSize="16" FontWeight="SemiBold" Foreground="#eaeaea" Margin="0,0,0,15"/>
+                        
+                        <CheckBox x:Name="ChkBlockPowerShell" Content="Require approval for PowerShell" Foreground="#eaeaea" IsChecked="True" Margin="0,0,0,10"/>
+                        <CheckBox x:Name="ChkBlockCertutil" Content="Require approval for certutil" Foreground="#eaeaea" IsChecked="True" Margin="0,0,0,10"/>
+                        <CheckBox x:Name="ChkBlockMshta" Content="Require approval for mshta" Foreground="#eaeaea" IsChecked="True" Margin="0,0,0,10"/>
+                        <CheckBox x:Name="ChkBlockRundll32" Content="Require approval for rundll32" Foreground="#eaeaea" IsChecked="True"/>
+                    </StackPanel>
+                </Border>
+                
+                <!-- Database Settings -->
+                <Border Background="#16213e" CornerRadius="8" Padding="20">
+                    <StackPanel>
+                        <TextBlock Text="Database" FontSize="16" FontWeight="SemiBold" Foreground="#eaeaea" Margin="0,0,0,15"/>
+                        
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Keep events for (days):" Foreground="#eaeaea" VerticalAlignment="Center"/>
+                            <TextBox Grid.Column="1" Text="90" Background="#0f3460" Foreground="#eaeaea" 
+                                     BorderThickness="0" Padding="10,8"/>
+                        </Grid>
+                        
+                        <Button Content="🗑️ Clear Old Events" Padding="15,10" Margin="0,10,0,0"
+                                HorizontalAlignment="Left"
+                                Background="#ef4444" Foreground="White" BorderThickness="0" Cursor="Hand">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" CornerRadius="5" 
+                                            Padding="{TemplateBinding Padding}">
+                                        <ContentPresenter HorizontalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+        
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+            <Button Content="Cancel" Padding="25,12" Margin="0,0,10,0" Click="Cancel_Click"
+                    Background="Transparent" Foreground="#eaeaea" BorderBrush="#e94560" BorderThickness="1" Cursor="Hand">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Content="Save Settings" Padding="25,12" Click="Save_Click"
+                    Background="#4ade80" Foreground="#1a1a2e" BorderThickness="0" Cursor="Hand" FontWeight="SemiBold">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5" 
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>

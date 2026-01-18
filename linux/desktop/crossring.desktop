@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=CROSSRING
+Comment=Endpoint Security Dashboard
+Exec=crossring-gui
+Icon=security-high
+Terminal=false
+Type=Application
+Categories=System;Security;
+Keywords=security;firewall;protection;

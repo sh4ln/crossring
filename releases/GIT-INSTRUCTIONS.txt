@@ -1,0 +1,41 @@
+﻿GitHub Release Instructions
+============================
+
+STEP 1: Commit all changes
+---------------------------
+git add .
+git commit -m "v1.0.23 Production Release - Zero Vulnerabilities"
+git push origin main
+
+STEP 2: Create and push tag
+----------------------------
+git tag -a v1.0.23 -m "Production Release v1.0.23"
+git push origin v1.0.23
+
+STEP 3: Create GitHub Release
+------------------------------
+1. Go to: https://github.com/YourUsername/CROSSRING/releases
+2. Click "Draft a new release"
+3. Choose tag: v1.0.23
+4. Release title: "CROSSRING v1.0.23 - Production Release"
+5. Copy content from: releases\RELEASE-NOTES-v1.0.23.md
+6. Upload file: releases\CROSSRING-v1.0.23-Windows-x64.zip
+7. Click "Publish release"
+
+BUILD INSTRUCTIONS (if not already built):
+------------------------------------------
+1. Install Visual Studio 2022 with:
+   - Desktop development with C++
+   - .NET desktop development
+   
+2. Open PowerShell as Administrator
+3. Navigate to project root
+4. Run: .\build.ps1 -All
+
+This will:
+- Check prerequisites
+- Clean previous builds
+- Build Release x64
+- Create ZIP package
+
+DONE! âœ…

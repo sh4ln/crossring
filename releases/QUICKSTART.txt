@@ -1,0 +1,48 @@
+﻿CROSSRING v1.0.23 - Quick Start Guide
+=====================================
+
+FAST INSTALLATION (3 commands):
+--------------------------------
+1. Open PowerShell as Administrator
+2. Run:
+   cd x64
+   .\CrossringService.exe /install
+   net start CrossringService
+
+3. Launch CrossringUI.exe (as Administrator)
+
+FIRST-TIME SETUP:
+-----------------
+â†’ Select "Balanced" protection mode (recommended)
+â†’ Approve trusted applications when prompted
+â†’ Review security events in dashboard
+
+COMMON TASKS:
+-------------
+â€¢ View blocked threats: Dashboard â†’ Events tab
+â€¢ Whitelist an application: Right-click â†’ "Trust this program"
+â€¢ Change protection mode: Settings â†’ Protection Level
+â€¢ View logs: C:\ProgramData\CROSSRING\logs\
+
+PROTECTION FEATURES:
+--------------------
+âœ“ Real-time process monitoring
+âœ“ Script execution control
+âœ“ Memory threat detection
+âœ“ USB drive protection
+âœ“ Network monitoring
+âœ“ Persistence detection
+âœ“ Digital signature verification
+
+DEFAULT BEHAVIOR:
+-----------------
+âœ“ Allows: Microsoft-signed executables
+âœ“ Allows: Programs in Program Files
+âœ“ Prompts: Unknown/unsigned executables
+âœ“ Blocks: Known malware signatures
+âœ“ Blocks: Execution from USB/Downloads (configurable)
+
+NEED HELP?
+----------
+â†’ Check INSTALL.txt for detailed instructions
+â†’ Visit: https://github.com/YourUsername/CROSSRING
