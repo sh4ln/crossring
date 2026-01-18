@@ -68,8 +68,8 @@ UNINSTALLATION:
 
 SUPPORT:
 --------
-Documentation: https://github.com/YourUsername/CROSSRING
-Issues: https://github.com/YourUsername/CROSSRING/issues
+Documentation: https://github.com/sh4ln/crossring
+Issues: https://github.com/sh4ln/crossring/issues
 
 â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
                     Production Ready - v1.0.23

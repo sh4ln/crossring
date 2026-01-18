@@ -45,4 +45,4 @@ DEFAULT BEHAVIOR:
 NEED HELP?
 ----------
 â†’ Check INSTALL.txt for detailed instructions
-â†’ Visit: https://github.com/YourUsername/CROSSRING
+â†’ Visit: https://github.com/sh4ln/crossring
